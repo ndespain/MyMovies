@@ -1,5 +1,6 @@
 package com.ndes.mymovies;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
@@ -8,9 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridLayout;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -39,7 +42,7 @@ public class MoviesActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movies, container, false);
 
-        MovieData movieData = new MovieData("Groundhog Day", "Really good movie", "later");
+//        final MovieData movieData = new MovieData("Groundhog Day", "Really good movie", "later");
         List<MovieData> movies = new ArrayList<>();
 //        movies.add(movieData);
 //        movies.add(new MovieData("Ladyhawke", "Another good movie", "later"));
@@ -57,8 +60,21 @@ public class MoviesActivityFragment extends Fragment {
         GridView moviesGrid = (GridView) view.findViewById(R.id.gridViewMovies);
         moviesGrid.setAdapter(mMovieAdapter);
 
+        moviesGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showToast(getActivity(), mMovies[position].getTitle() + "\n" + mMovies[position].getOverview());
+            }
+        });
+
         return view;
     }
+
+    private void showToast(Context context, String message) {
+        Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
 
     @Override
     public void onStart() {

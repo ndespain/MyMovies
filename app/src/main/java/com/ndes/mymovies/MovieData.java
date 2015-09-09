@@ -5,13 +5,13 @@ package com.ndes.mymovies;
  */
 public class MovieData {
     String title;
-    String description;
+    String overview;
     String imgSrc;
     private final String BASE_IMAGE_URL = "http://image.tmdb.org/t/p/w185/";
 
-    public MovieData(String title, String description, String imgSrc) {
+    public MovieData(String title, String overview, String imgSrc) {
         this.title = title;
-        this.description = description;
+        this.overview = overview;
         this.imgSrc = imgSrc;
     }
 
@@ -23,12 +23,12 @@ public class MovieData {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getOverview() {
+        return overview;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 
     public String getImgSrc() {
