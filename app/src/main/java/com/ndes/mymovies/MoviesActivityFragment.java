@@ -14,6 +14,10 @@ import android.widget.GridView;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,6 +29,7 @@ import java.util.List;
 public class MoviesActivityFragment extends Fragment {
 
     private MovieArrayAdapter mMovieAdapter;
+    private MovieData[] mMovies;
 
     public MoviesActivityFragment() {
     }
@@ -36,12 +41,12 @@ public class MoviesActivityFragment extends Fragment {
 
         MovieData movieData = new MovieData("Groundhog Day", "Really good movie", "later");
         List<MovieData> movies = new ArrayList<>();
-        movies.add(movieData);
-        movies.add(new MovieData("Ladyhawke", "Another good movie", "later"));
-        movies.add(new MovieData("Movie3", "Another good movie", "later"));
-        movies.add(new MovieData("Movie4", "Another good movie", "later"));
-        movies.add(new MovieData("Movie5", "Another good movie", "later"));
-        movies.add(new MovieData("Movie6", "Another good movie", "later"));
+//        movies.add(movieData);
+//        movies.add(new MovieData("Ladyhawke", "Another good movie", "later"));
+//        movies.add(new MovieData("Movie3", "Another good movie", "later"));
+//        movies.add(new MovieData("Movie4", "Another good movie", "later"));
+//        movies.add(new MovieData("Movie5", "Another good movie", "later"));
+//        movies.add(new MovieData("Movie6", "Another good movie", "later"));
 
         //http://api.themoviedb.org/3/discover/movie?page=1&release_date.gte=2013-05-12&release_date.lte=2013-05-14&api_key=522f2ef5fc7f003a64790b1c6016ec3a
 //        http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg
@@ -78,13 +83,46 @@ public class MoviesActivityFragment extends Fragment {
             String fullData = getMovieData();
             MovieData[] movies = null;
 
-            movies = getMovieDataFromJson(fullData);
+            try {
+                movies = getMovieDataFromJson(fullData);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             return movies;
         }
 
-        private MovieData[] getMovieDataFromJson(String fullData) {
-            return new MovieData[0];
+        @Override
+        protected void onPostExecute(MovieData[] movies) {
+//            super.onPostExecute(movieData);
+            mMovies = movies;
+            mMovieAdapter.clear();
+            if(movies != null) {
+                mMovieAdapter.addAll(movies);
+            }
+        }
+
+        private MovieData[] getMovieDataFromJson(String fullData) throws JSONException {
+
+            final String tmdb_results = "results";
+            final String tmdb_poster = "poster_path";
+            final String tmdb_title = "title";
+            final String tmdb_overview = "overview";
+
+            JSONObject moviesJson = new JSONObject(fullData);
+            JSONArray moviesArray = moviesJson.getJSONArray(tmdb_results);
+
+            MovieData[] movies = new MovieData[moviesArray.length()];
+            for (int i = 0; i < moviesArray.length(); i++) {
+                JSONObject movieInfo = moviesArray.getJSONObject(i);
+                MovieData movie = new MovieData(movieInfo.getString(tmdb_title),movieInfo.getString(tmdb_overview),movieInfo.getString(tmdb_poster));
+                movies[i] = movie;
+            }
+
+
+            return movies;
+
+
         }
 
         private String getMovieData() {

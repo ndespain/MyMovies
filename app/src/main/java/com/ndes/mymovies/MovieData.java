@@ -7,6 +7,7 @@ public class MovieData {
     String title;
     String description;
     String imgSrc;
+    private final String BASE_IMAGE_URL = "http://image.tmdb.org/t/p/w185/";
 
     public MovieData(String title, String description, String imgSrc) {
         this.title = title;
@@ -31,7 +32,7 @@ public class MovieData {
     }
 
     public String getImgSrc() {
-        return imgSrc;
+        return BASE_IMAGE_URL + imgSrc;
     }
 
     public void setImgSrc(String imgSrc) {
