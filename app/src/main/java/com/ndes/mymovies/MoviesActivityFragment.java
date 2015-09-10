@@ -55,6 +55,7 @@ public class MoviesActivityFragment extends Fragment {
 //        http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg
 //        Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);
         //http://api.themoviedb.org/3/discover/movie?api_key=522f2ef5fc7f003a64790b1c6016ec3a&certification_country=US&certification.lte=PG-13
+        //trailer info: http://api.themoviedb.org/3/movie/211672?api_key=522f2ef5fc7f003a64790b1c6016ec3a&append_to_response=trailers
 
         mMovieAdapter = new MovieArrayAdapter(getActivity(), R.layout.grid_item_movie, movies);
         GridView moviesGrid = (GridView) view.findViewById(R.id.gridViewMovies);
