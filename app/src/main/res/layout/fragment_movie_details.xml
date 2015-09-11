@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/default_padding">
+
+    <ImageView
+        android:layout_width="132dp"
+        android:layout_height="198dp"
+        android:id="@+id/moviePoster"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/movieTitle"
+        android:layout_gravity="center"
+        android:layout_toRightOf="@id/moviePoster"
+        android:layout_marginLeft="@dimen/default_margin"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/movie_summary"
+        android:id="@+id/movieDescriptionLabel"
+        android:layout_gravity="center"
+        android:layout_below="@+id/moviePoster"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Large Text"
+        android:id="@+id/movieDescription"
+        android:layout_gravity="center"
+        android:layout_below="@+id/movieDescriptionLabel" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play_trailer"
+        android:id="@+id/trailer1"
+        android:layout_below="@+id/movieTitle"
+        android:layout_alignStart="@+id/movieTitle" />
+
+
+</RelativeLayout>

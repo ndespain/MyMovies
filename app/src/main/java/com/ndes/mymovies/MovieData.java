@@ -1,9 +1,11 @@
 package com.ndes.mymovies;
 
+import java.io.Serializable;
+
 /**
  * Created by ndespain on 9/3/15.
  */
-public class MovieData {
+public class MovieData implements Serializable {
     String title;
     String overview;
     String imgSrc;

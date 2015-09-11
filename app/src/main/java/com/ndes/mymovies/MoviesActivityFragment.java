@@ -1,6 +1,7 @@
 package com.ndes.mymovies;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
@@ -64,7 +65,10 @@ public class MoviesActivityFragment extends Fragment {
         moviesGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showToast(getActivity(), mMovies[position].getTitle() + "\n" + mMovies[position].getOverview());
+//                showToast(getActivity(), mMovies[position].getTitle() + "\n" + mMovies[position].getOverview());
+                Intent intent = new Intent(parent.getContext(), MovieDetailsActivity.class);
+                intent.putExtra("MOVIEDATA", mMovies[position]);
+                startActivity(intent);
             }
         });
 
