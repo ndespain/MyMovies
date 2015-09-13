@@ -1,5 +1,6 @@
 package com.ndes.mymovies;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -59,7 +60,7 @@ public class MovieDetailsActivityFragment extends Fragment {
                 Trailer trailer = mMovieData.getTrailer(0);
                 if (trailer != null) {
                     Toast.makeText(getActivity(), mMovieData.getTrailers().get(0).getName(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + trailer.getSource())));
+                    watchYoutubeVideo(trailer.getSource());
                 }
             }
         });
@@ -67,6 +68,17 @@ public class MovieDetailsActivityFragment extends Fragment {
         MovieDetailTask task = new MovieDetailTask();
 
         return view;
+    }
+
+    public void watchYoutubeVideo(String id){
+        try{
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+            startActivity(intent);
+        }catch (ActivityNotFoundException ex){
+            Intent intent=new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://www.youtube.com/watch?v="+id));
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -82,9 +94,8 @@ public class MovieDetailsActivityFragment extends Fragment {
         @Override
         protected MovieData doInBackground(String... params) {
             String extraMovieInfo = getExtraMovieInfo(params[0]);
-            MovieData movieData = extractMovieExtraInfoFromJson(extraMovieInfo);
 
-            return movieData;
+            return extractMovieExtraInfoFromJson(extraMovieInfo);
         }
 
         @Override
