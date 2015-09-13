@@ -13,6 +13,9 @@ import java.net.URL;
  * Created by ndespain on 9/4/15.
  */
 public class ServiceUtils {
+
+    public static final String API_KEY = "522f2ef5fc7f003a64790b1c6016ec3a";
+
     private static final String LOG_TAG = ServiceUtils.class.getSimpleName();
 
 

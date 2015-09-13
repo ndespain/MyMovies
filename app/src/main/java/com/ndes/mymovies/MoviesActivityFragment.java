@@ -11,12 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +27,8 @@ import java.util.List;
  * A placeholder fragment containing a simple view.
  */
 public class MoviesActivityFragment extends Fragment {
+
+    private final String BASE_URL = "http://api.themoviedb.org/3/discover/movie?";
 
     private MovieArrayAdapter mMovieAdapter;
     private MovieData[] mMovies;
@@ -96,19 +94,11 @@ public class MoviesActivityFragment extends Fragment {
     public class MoviesTask extends AsyncTask <Void, Void, MovieData[]> {
 
         private final String LOG_TAG = MoviesTask.class.getSimpleName();
-        private final String BASE_URL = "http://api.themoviedb.org/3/discover/movie?";
-        private final String API_KEY = "522f2ef5fc7f003a64790b1c6016ec3a";
 
         @Override
         protected MovieData[] doInBackground(Void... params) {
             String fullData = getMovieData();
-            MovieData[] movies = null;
-
-            try {
-                movies = getMovieDataFromJson(fullData);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            MovieData[] movies = extractMovieDataFromJson(fullData);
 
             return movies;
         }
@@ -123,21 +113,27 @@ public class MoviesActivityFragment extends Fragment {
             }
         }
 
-        private MovieData[] getMovieDataFromJson(String fullData) throws JSONException {
+        private MovieData[] extractMovieDataFromJson(String fullData) {
 
+            final String tmdb_movieId = "id";
             final String tmdb_results = "results";
             final String tmdb_poster = "poster_path";
             final String tmdb_title = "title";
             final String tmdb_overview = "overview";
+            MovieData[] movies = null;
 
-            JSONObject moviesJson = new JSONObject(fullData);
-            JSONArray moviesArray = moviesJson.getJSONArray(tmdb_results);
+            try {
+                JSONObject moviesJson = new JSONObject(fullData);
+                JSONArray moviesArray = moviesJson.getJSONArray(tmdb_results);
 
-            MovieData[] movies = new MovieData[moviesArray.length()];
-            for (int i = 0; i < moviesArray.length(); i++) {
-                JSONObject movieInfo = moviesArray.getJSONObject(i);
-                MovieData movie = new MovieData(movieInfo.getString(tmdb_title),movieInfo.getString(tmdb_overview),movieInfo.getString(tmdb_poster));
-                movies[i] = movie;
+                movies = new MovieData[moviesArray.length()];
+                for (int i = 0; i < moviesArray.length(); i++) {
+                    JSONObject movieInfo = moviesArray.getJSONObject(i);
+                    MovieData movie = new MovieData(movieInfo.getString(tmdb_movieId), movieInfo.getString(tmdb_title), movieInfo.getString(tmdb_overview), movieInfo.getString(tmdb_poster));
+                    movies[i] = movie;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
 
@@ -149,7 +145,7 @@ public class MoviesActivityFragment extends Fragment {
         private String getMovieData() {
 
 
-            Uri uri = Uri.parse(BASE_URL).buildUpon().appendQueryParameter("api_key", API_KEY)
+            Uri uri = Uri.parse(BASE_URL).buildUpon().appendQueryParameter("api_key", ServiceUtils.API_KEY)
                     .appendQueryParameter("certification_country", "US")
                     .appendQueryParameter("certification.lte","PG-13").build();
 
