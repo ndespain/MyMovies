@@ -84,24 +84,26 @@ public class MovieDetailsActivityFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        new MovieDetailTask().execute(mMovieData.getMovieId());
+        new MovieDetailTask().execute(mMovieData);
     }
 
-    private class MovieDetailTask extends AsyncTask<String, Void, MovieData> {
+    private class MovieDetailTask extends AsyncTask<MovieData, Void, MovieData> {
         public static final String YOUTUBE = "youtube";
         String LOG_TAG = MovieDetailTask.class.getSimpleName();
 
         @Override
-        protected MovieData doInBackground(String... params) {
-            String extraMovieInfo = getExtraMovieInfo(params[0]);
+        protected MovieData doInBackground(MovieData... params) {
+            MovieData movieData = params[0];
+            String extraMovieInfo = getExtraMovieInfo(movieData.getMovieId());
 
-            return extractMovieExtraInfoFromJson(extraMovieInfo);
+            extractMovieExtraInfoFromJson(movieData, extraMovieInfo);
+            return movieData;
         }
 
         @Override
         protected void onPostExecute(MovieData movieData) {
 //            super.onPostExecute(movieData);
-            mMovieData.setTrailers(movieData.getTrailers());
+//            mMovieData.setTrailers(movieData.getTrailers());
             Button button = (Button) getView().findViewById(R.id.trailer1);
 
         }
@@ -122,8 +124,7 @@ public class MovieDetailsActivityFragment extends Fragment {
             return ServiceUtils.requestData(url);
         }
 
-        private MovieData extractMovieExtraInfoFromJson(String extraMovieInfo) {
-            MovieData data = new MovieData();
+        private void extractMovieExtraInfoFromJson(MovieData movieData, String extraMovieInfo) {
             try {
                 JSONObject json = new JSONObject(extraMovieInfo);
                 JSONArray trailers = json.getJSONObject("trailers").getJSONArray(YOUTUBE);
@@ -132,7 +133,7 @@ public class MovieDetailsActivityFragment extends Fragment {
 
                     Trailer trailer = new Trailer(YOUTUBE, trailerJson.getString("name"), trailerJson.getString("source"));
 
-                    data.addTrailer(trailer);
+                    movieData.addTrailer(trailer);
 
 
                 }
@@ -142,7 +143,7 @@ public class MovieDetailsActivityFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            return data;
+//            return movieData;
         }
 
     }
