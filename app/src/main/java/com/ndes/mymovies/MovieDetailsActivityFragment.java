@@ -71,13 +71,17 @@ public class MovieDetailsActivityFragment extends Fragment {
     }
 
     public void watchYoutubeVideo(String id){
-        try{
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivity(intent);
-        }catch (ActivityNotFoundException ex){
-            Intent intent=new Intent(Intent.ACTION_VIEW,
+        } else {
+            intent=new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://www.youtube.com/watch?v="+id));
-            startActivity(intent);
+            if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivity(intent);
+            } else {
+                Toast.makeText(getActivity(), "No app to show trailer.", Toast.LENGTH_LONG);
+            }
         }
     }
 
