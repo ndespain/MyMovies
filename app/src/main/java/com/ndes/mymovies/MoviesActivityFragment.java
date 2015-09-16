@@ -2,8 +2,10 @@ package com.ndes.mymovies;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -98,9 +100,8 @@ public class MoviesActivityFragment extends Fragment {
         @Override
         protected MovieData[] doInBackground(Void... params) {
             String fullData = getMovieData();
-            MovieData[] movies = extractMovieDataFromJson(fullData);
 
-            return movies;
+            return extractMovieDataFromJson(fullData);
         }
 
         @Override
@@ -162,9 +163,13 @@ sort_by
     vote_count.asc
     vote_count.desc
  */
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String sortBy = preferences.getString(getString(R.string.pref_sort_by_key), getString(R.string.pref_sort_by_default)) + ".desc";
+
             Uri uri = Uri.parse(BASE_URL).buildUpon().appendQueryParameter("api_key", ServiceUtils.API_KEY)
                     .appendQueryParameter("certification_country", "US")
-                    .appendQueryParameter("certification.lte","PG-13").build();
+                    .appendQueryParameter("certification.lte","PG-13")
+                    .appendQueryParameter("sort_by", sortBy).build();
 
 
             URL url = null;
