@@ -12,6 +12,6 @@
         android:numColumns="auto_fit"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:columnWidth="90dp" />
+        />
 
 </RelativeLayout>
