@@ -13,8 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.ndes.mymovies.model.MovieData;
+import com.ndes.mymovies.model.SortBy;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +39,7 @@ public class MoviesActivityFragment extends Fragment {
 
     private MovieArrayAdapter mMovieAdapter;
     private MovieData[] mMovies;
+    private Spinner mSpinner;
 
     public MoviesActivityFragment() {
     }
@@ -42,6 +48,39 @@ public class MoviesActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movies, container, false);
+
+        String[] displays = getResources().getStringArray(R.array.pref_sort_options_display);
+        String[] values = getResources().getStringArray(R.array.pref_sort_option_values);
+
+        List<SortBy> sortByOptions = new ArrayList<>();
+        for (int i = 0; i < displays.length; i++) {
+            SortBy sortBy = new SortBy(displays[i], values[i]);
+            sortByOptions.add(sortBy);
+        }
+
+        mSpinner = (Spinner) view.findViewById(R.id.sort_by_spinner);
+        ArrayAdapter<SortBy> adapter = new ArrayAdapter<>(getActivity(),R.layout.simple_list_item,sortByOptions);
+        mSpinner.setAdapter(adapter);
+
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SortBy sort = (SortBy) parent.getAdapter().getItem(position);
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString(getString(R.string.pref_sort_by_key), sort.getDataValue());
+                editor.commit();
+
+                updateMovies();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
 //        final MovieData movieData = new MovieData("Groundhog Day", "Really good movie", "later");
         List<MovieData> movies = new ArrayList<>();

@@ -1,4 +1,6 @@
-package com.ndes.mymovies;
+package com.ndes.mymovies.model;
+
+import com.ndes.mymovies.Trailer;
 
 import java.io.Serializable;
 import java.util.ArrayList;

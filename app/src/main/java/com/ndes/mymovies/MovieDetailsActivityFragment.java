@@ -1,6 +1,5 @@
 package com.ndes.mymovies;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -15,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ndes.mymovies.model.MovieData;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;

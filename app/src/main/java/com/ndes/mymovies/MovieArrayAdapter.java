@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ndes.mymovies.model.MovieData;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
