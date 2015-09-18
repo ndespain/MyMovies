@@ -91,11 +91,6 @@ public class MoviesActivityFragment extends Fragment {
 //        movies.add(new MovieData("Movie5", "Another good movie", "later"));
 //        movies.add(new MovieData("Movie6", "Another good movie", "later"));
 
-        //http://api.themoviedb.org/3/discover/movie?page=1&release_date.gte=2013-05-12&release_date.lte=2013-05-14&api_key=522f2ef5fc7f003a64790b1c6016ec3a
-//        http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg
-//        Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);
-        //http://api.themoviedb.org/3/discover/movie?api_key=522f2ef5fc7f003a64790b1c6016ec3a&certification_country=US&certification.lte=PG-13
-        //trailer info: http://api.themoviedb.org/3/movie/211672?api_key=522f2ef5fc7f003a64790b1c6016ec3a&append_to_response=trailers
 
         mMovieAdapter = new MovieArrayAdapter(getActivity(), R.layout.grid_item_movie, movies);
         GridView moviesGrid = (GridView) view.findViewById(R.id.gridViewMovies);
@@ -206,7 +201,7 @@ sort_by
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
             String sortBy = preferences.getString(getString(R.string.pref_sort_by_key), getString(R.string.pref_sort_by_default)) + ".desc";
 
-            Uri uri = Uri.parse(BASE_URL).buildUpon().appendQueryParameter("api_key", ServiceUtils.API_KEY)
+            Uri uri = Uri.parse(BASE_URL).buildUpon().appendQueryParameter("api_key", getString(R.string.api_key))
                     .appendQueryParameter("certification_country", "US")
                     .appendQueryParameter("certification.lte","PG-13")
                     .appendQueryParameter("sort_by", sortBy).build();

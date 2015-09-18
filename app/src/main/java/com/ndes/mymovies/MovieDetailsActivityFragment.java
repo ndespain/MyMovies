@@ -113,8 +113,7 @@ public class MovieDetailsActivityFragment extends Fragment {
         }
 
         private String getExtraMovieInfo(String movieId) {
-            //http://api.themoviedb.org/3/movie/211672?api_key=522f2ef5fc7f003a64790b1c6016ec3a&append_to_response=trailers
-            Uri uri = Uri.parse(BASE_DETAIL_URL + movieId + "?").buildUpon().appendQueryParameter("api_key", ServiceUtils.API_KEY)
+            Uri uri = Uri.parse(BASE_DETAIL_URL + movieId + "?").buildUpon().appendQueryParameter("api_key", getString(R.string.api_key))
                     .appendQueryParameter("append_to_response", "trailers").build();
 
 
