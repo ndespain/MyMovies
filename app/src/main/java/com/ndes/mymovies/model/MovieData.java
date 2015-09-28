@@ -14,6 +14,10 @@ public class MovieData implements Serializable {
     private String title;
     private String overview;
     private String imgSrc;
+    private String releaseDate;
+    private String rating;
+    private double voteAverage;
+    private double voteCount;
     private List<Trailer> trailers;
 
     private final String BASE_IMAGE_URL = "http://image.tmdb.org/t/p/w185/";
@@ -84,4 +88,35 @@ public class MovieData implements Serializable {
         trailers.add(trailer);
     }
 
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(final String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(final String rating) {
+        this.rating = rating;
+    }
+
+    public double getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(final double voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public double getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(final double voteCount) {
+        this.voteCount = voteCount;
+    }
 }

@@ -165,6 +165,9 @@ public class MoviesActivityFragment extends Fragment {
                 for (int i = 0; i < moviesArray.length(); i++) {
                     JSONObject movieInfo = moviesArray.getJSONObject(i);
                     MovieData movie = new MovieData(movieInfo.getString(tmdb_movieId), movieInfo.getString(tmdb_title), movieInfo.getString(tmdb_overview), movieInfo.getString(tmdb_poster));
+                    movie.setVoteAverage(movieInfo.getDouble("vote_average"));
+                    movie.setVoteCount(movieInfo.getInt("vote_count"));
+
                     movies[i] = movie;
                 }
             } catch (JSONException e) {

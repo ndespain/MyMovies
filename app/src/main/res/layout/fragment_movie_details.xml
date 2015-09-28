@@ -42,8 +42,75 @@
         android:layout_height="wrap_content"
         android:text="@string/play_trailer"
         android:id="@+id/trailer1"
+        android:layout_alignBaseline="@+id/movieDescriptionLabel"
+        android:layout_alignBottom="@+id/movieDescriptionLabel"
+        android:layout_toEndOf="@+id/moviePoster"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/release_date"
+        android:id="@+id/releaseDateLabel"
         android:layout_below="@+id/movieTitle"
-        android:layout_alignStart="@+id/movieTitle" />
+        android:layout_toEndOf="@+id/moviePoster"
+        android:layout_alignLeft="@+id/movieTitle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/releaseDate"
+        android:layout_alignTop="@+id/releaseDateLabel"
+        android:layout_toEndOf="@+id/textView3"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Viewer Rating"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/releaseDate"
+        android:layout_toEndOf="@+id/moviePoster"
+        android:layout_alignLeft="@+id/movieTitle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/viewerRating"
+        android:layout_toEndOf="@+id/trailer1"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_below="@+id/releaseDate"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView3"
+        android:layout_toStartOf="@+id/viewerRating"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/textView3"
+        >
+        <RatingBar
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar"
+            android:numStars="5"
+            style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
+            android:rating="2.5"
+            android:indeterminateOnly="false"
+            android:outlineProvider="none"
+            android:stepSize="0.1"
+            android:isIndicator="true"
+            android:layout_alignEnd="@+id/viewerRating"/>
+
+    </LinearLayout>
 
 
 </RelativeLayout>

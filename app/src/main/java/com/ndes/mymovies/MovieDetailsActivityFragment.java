@@ -114,7 +114,7 @@ public class MovieDetailsActivityFragment extends Fragment {
 
         private String getExtraMovieInfo(String movieId) {
             Uri uri = Uri.parse(BASE_DETAIL_URL + movieId + "?").buildUpon().appendQueryParameter("api_key", getString(R.string.api_key))
-                    .appendQueryParameter("append_to_response", "trailers").build();
+                    .appendQueryParameter("append_to_response", "trailers,releases").build();
 
 
             URL url = null;
@@ -137,8 +137,16 @@ public class MovieDetailsActivityFragment extends Fragment {
                     Trailer trailer = new Trailer(YOUTUBE, trailerJson.getString("name"), trailerJson.getString("source"));
 
                     movieData.addTrailer(trailer);
+                }
 
-
+                JSONArray releases = json.getJSONObject("releases").getJSONArray("countries");
+                for (int i = 0; i <releases.length(); i++) {
+                    JSONObject release = (JSONObject) releases.get(i);
+                    if ("US".equals(release.getString("iso_3166_1"))) {
+                        movieData.setRating(release.getString("certification"));
+                        movieData.setReleaseDate(release.getString("release_date"));
+                        break;
+                    }
                 }
 
 
