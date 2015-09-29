@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -109,6 +110,18 @@ public class MovieDetailsActivityFragment extends Fragment {
 //            super.onPostExecute(movieData);
 //            mMovieData.setTrailers(movieData.getTrailers());
             Button button = (Button) getView().findViewById(R.id.trailer1);
+
+            TextView movieRating = (TextView) getView().findViewById(R.id.movieRating);
+            movieRating.setText(movieData.getRating());
+
+            TextView releaseDate = (TextView) getView().findViewById(R.id.releaseDate);
+            releaseDate.setText(movieData.getReleaseDate());
+
+            TextView voteCount = (TextView) getView().findViewById(R.id.viewerVoteCount);
+            voteCount.setText(movieData.getVoteAverage() + " / " + movieData.getVoteCount());
+
+            RatingBar ratingBar = (RatingBar) getView().findViewById(R.id.ratingBar);
+            ratingBar.setRating(movieData.getVoteAverage());
 
         }
 

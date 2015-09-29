@@ -16,8 +16,8 @@ public class MovieData implements Serializable {
     private String imgSrc;
     private String releaseDate;
     private String rating;
-    private double voteAverage;
-    private double voteCount;
+    private float voteAverage;
+    private int voteCount;
     private List<Trailer> trailers;
 
     private final String BASE_IMAGE_URL = "http://image.tmdb.org/t/p/w185/";
@@ -104,19 +104,20 @@ public class MovieData implements Serializable {
         this.rating = rating;
     }
 
-    public double getVoteAverage() {
-        return voteAverage;
+    public float getVoteAverage() {
+        // voteAverage is out of ten. Return voteAverage divide by 2 so it will be base on max 5.
+        return voteAverage / 2;
     }
 
-    public void setVoteAverage(final double voteAverage) {
+    public void setVoteAverage(final float voteAverage) {
         this.voteAverage = voteAverage;
     }
 
-    public double getVoteCount() {
+    public int getVoteCount() {
         return voteCount;
     }
 
-    public void setVoteCount(final double voteCount) {
+    public void setVoteCount(final int voteCount) {
         this.voteCount = voteCount;
     }
 }
