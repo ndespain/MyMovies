@@ -107,9 +107,6 @@ public class MovieDetailsActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(MovieData movieData) {
-//            super.onPostExecute(movieData);
-//            mMovieData.setTrailers(movieData.getTrailers());
-            Button button = (Button) getView().findViewById(R.id.trailer1);
 
             TextView movieRating = (TextView) getView().findViewById(R.id.movieRating);
             movieRating.setText(movieData.getRating());

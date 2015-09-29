@@ -35,6 +35,7 @@ import java.util.List;
  */
 public class MoviesActivityFragment extends Fragment {
 
+    public static final String MOVIE_DATA_KEY = "movieData";
     private final String BASE_URL = "http://api.themoviedb.org/3/discover/movie?";
 
     private MovieArrayAdapter mMovieAdapter;
@@ -42,6 +43,19 @@ public class MoviesActivityFragment extends Fragment {
     private Spinner mSpinner;
 
     public MoviesActivityFragment() {
+    }
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable(MOVIE_DATA_KEY, mMovies);
+
+    }
+
+    @Override
+    public void onViewStateRestored(final Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
     }
 
     @Override
