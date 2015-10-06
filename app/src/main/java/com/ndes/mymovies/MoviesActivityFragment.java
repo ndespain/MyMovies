@@ -3,6 +3,8 @@ package com.ndes.mymovies;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -62,6 +64,12 @@ public class MoviesActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movies, container, false);
+
+        // todo: use this to make sure we have internet connection so we don't crash
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork!=null && activeNetwork.isConnectedOrConnecting();
+
 
         String[] displays = getResources().getStringArray(R.array.pref_sort_options_display);
         String[] values = getResources().getStringArray(R.array.pref_sort_option_values);
