@@ -8,4 +8,6 @@
     android:paddingLeft="5dp"
     android:paddingRight="5dp">
 
+    <!--I think I could have just used android.R.layout.simple_spinner_item-->
+
 </TextView>

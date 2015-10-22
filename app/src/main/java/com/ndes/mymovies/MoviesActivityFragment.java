@@ -82,6 +82,8 @@ public class MoviesActivityFragment extends Fragment {
 
         mSpinner = (Spinner) view.findViewById(R.id.sort_by_spinner);
         ArrayAdapter<SortBy> adapter = new ArrayAdapter<>(getActivity(),R.layout.simple_list_item,sortByOptions);
+        // either of these work.
+//        ArrayAdapter<SortBy> adapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_item,sortByOptions);
         mSpinner.setAdapter(adapter);
 
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
